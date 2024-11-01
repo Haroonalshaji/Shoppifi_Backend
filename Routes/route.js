@@ -30,6 +30,9 @@ router.delete('/delete-wishlist/:id', jwtMiddleware, wishlistController.deleteFr
 // add to cart
 router.post('/add-cart', jwtMiddleware, cartController.addToCart)
 
+// add to cart from wishlist
+router.post('/add-to-cart-fromWishlist', jwtMiddleware, cartController.addToCartFromWishlist);
+
 // get to cart
 router.get('/get-cart', jwtMiddleware, cartController.getToCart)
 

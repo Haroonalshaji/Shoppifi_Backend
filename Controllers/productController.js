@@ -4,6 +4,8 @@ const products = require('../Models/productSchema')
 exports.getAllProducts = async (req, res) => {
     try {
         const AllProducts = await products.find();
+        // console.log(AllProducts);
+        
         res.status(200).json(AllProducts)
     } catch (error) {
         res.status(404).json(error)

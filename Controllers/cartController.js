@@ -3,8 +3,10 @@ const carts = require('../Models/cartSchema');
 // add to cart
 exports.addToCart = async (req, res) => {
     // get details
+
+
     const { id, title, price, image, quantity } = req.body
-    
+
     try {
         const cartItem = await carts.findOne({ id });
         if (cartItem) {
@@ -24,6 +26,32 @@ exports.addToCart = async (req, res) => {
         res.status(404).json(err)
     }
 }
+
+
+exports.addToCartFromWishlist = async (req, res) => {
+    const { id, title, price, image } = req.body;
+
+    // console.log(req.body);
+    try {
+        // Check if the item already exists in the cart
+        const cartNewItem = await carts.findOne({ id });
+
+        if (cartNewItem) {
+            return res.status(200).json('Product already exists in the cart');
+        } else {
+            // Create a new cart item if it doesn't exist
+            const newCartItem = new carts({ id, title, price, image, quantity:0 });
+            await newCartItem.save();
+            return res.status(200).json('Product added to Cart');
+        }
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json('Internal Server Error');
+    }
+};
+
+
 
 // decrement the product quantity
 exports.decrementFromCart = async (req, res) => {

@@ -17,7 +17,8 @@ exports.addWishlist = async (req, res) => {
                 title,
                 price,
                 image,
-                userId
+                userId,
+                quantity: 0
             })
             await newProduct.save();
             res.status(200).json("Product Added Succesfully !")
